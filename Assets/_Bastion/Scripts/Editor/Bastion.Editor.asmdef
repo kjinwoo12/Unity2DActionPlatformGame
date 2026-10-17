@@ -1,0 +1,19 @@
+{
+    "name": "Bastion.Editor",
+    "rootNamespace": "Bastion.Editor",
+    "references": [
+        "Unity.2D.Sprite.Editor",
+        "Bastion.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

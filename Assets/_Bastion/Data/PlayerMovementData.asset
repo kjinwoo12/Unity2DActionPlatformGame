@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 567aa7ebcd50535478072902b48a1f96, type: 3}
+  m_Name: PlayerMovementData
+  m_EditorClassIdentifier: Bastion.Runtime::Bastion.Player.PlayerMovementData
+  MaxRunSpeed: 7
+  GroundAcceleration: 70
+  GroundDeceleration: 90
+  AirAcceleration: 45
+  AirDeceleration: 35
+  JumpHeight: 3.2
+  TimeToJumpApex: 0.38
+  JumpCutGravityMultiplier: 2.5
+  FallGravityMultiplier: 1.7
+  MaxFallSpeed: 20
+  CoyoteTime: 0.1
+  JumpBufferTime: 0.12
+  MaxAirJumps: 1
+  AirJumpHeight: 2.4
+  DashSpeed: 8.5
+  DashDuration: 0.4
+  DashCooldown: 0.3
+  DashInvincibleTime: 0.32
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  GroundCheckDistance: 0.1
+  GroundStickSpeed: 4

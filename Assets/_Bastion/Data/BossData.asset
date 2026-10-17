@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f4340caaf6bc624c99eaf355ae91fbf, type: 3}
+  m_Name: BossData
+  m_EditorClassIdentifier: Bastion.Runtime::Bastion.Boss.BossData
+  TargetLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  HoverHeight: 0.6
+  MoveSpeed: 3
+  FarDistance: 6
+  FarSpeedMultiplier: 2
+  BobAmplitude: 0.15
+  BobFrequency: 1.5
+  IdleTime: 0.9
+  SlashRange: 3.2
+  SpikeRange: 2.8
+  MaxChaseTime: 2.5
+  TelegraphTime: 0.5
+  Phase2TelegraphMultiplier: 0.7
+  SlashAnimation: Attack
+  SlashDuration: 1.1
+  SlashHits:
+  - AnimationState: Attack1
+    Duration: 0.3
+    ActiveStart: 0.17
+    ActiveEnd: 0.33
+    CancelTime: 0.2
+    Damage: 18
+    Knockback: 7
+    HitStop: 0.05
+    Lunge: 2
+    HitboxOffset: {x: 1.6, y: 1.6}
+    HitboxSize: {x: 3.2, y: 3}
+  - AnimationState: Attack1
+    Duration: 0.3
+    ActiveStart: 0.75
+    ActiveEnd: 0.92
+    CancelTime: 0.2
+    Damage: 18
+    Knockback: 8
+    HitStop: 0.05
+    Lunge: 2
+    HitboxOffset: {x: 1.8, y: 1}
+    HitboxSize: {x: 3.6, y: 1.6}
+  SpikeAnimation: Skill
+  Spike:
+    AnimationState: Attack1
+    Duration: 1
+    ActiveStart: 0.42
+    ActiveEnd: 0.83
+    CancelTime: 0.2
+    Damage: 22
+    Knockback: 9
+    HitStop: 0.05
+    Lunge: 2
+    HitboxOffset: {x: 0, y: 1.5}
+    HitboxSize: {x: 6, y: 3}
+  SummonAnimation: Summon
+  SummonDuration: 0.9
+  SummonSpawnTime: 0.55
+  MinionPrefab: {fileID: 1832317679493851745, guid: e953b6413ffb96b4b921f8e2f15c4f09, type: 3}
+  MinionCount: 2
+  MaxMinionsAlive: 4
+  Phase2HealthRatio: 0.5
+  Phase2SpeedMultiplier: 1.35
+  Phase2IdleMultiplier: 0.6
+  PhaseAnimation: Phase
+  PhaseTransitionTime: 1.4

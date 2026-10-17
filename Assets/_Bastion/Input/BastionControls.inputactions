@@ -1,0 +1,77 @@
+{
+    "version": 1,
+    "name": "BastionControls",
+    "maps": [
+        {
+            "name": "Gameplay",
+            "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e01",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e02",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e03",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e04",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e05",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                { "name": "Arrows", "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e13", "path": "1DAxis", "interactions": "", "processors": "", "groups": "", "action": "Move", "isComposite": true, "isPartOfComposite": false },
+                { "name": "negative", "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e14", "path": "<Keyboard>/leftArrow", "interactions": "", "processors": "", "groups": "Keyboard", "action": "Move", "isComposite": false, "isPartOfComposite": true },
+                { "name": "positive", "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e15", "path": "<Keyboard>/rightArrow", "interactions": "", "processors": "", "groups": "Keyboard", "action": "Move", "isComposite": false, "isPartOfComposite": true },
+                { "name": "", "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e16", "path": "<Gamepad>/leftStick/x", "interactions": "", "processors": "", "groups": "Gamepad", "action": "Move", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e17", "path": "<Gamepad>/dpad/x", "interactions": "", "processors": "", "groups": "Gamepad", "action": "Move", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e20", "path": "<Keyboard>/upArrow", "interactions": "", "processors": "", "groups": "Keyboard", "action": "Jump", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e21", "path": "<Gamepad>/buttonSouth", "interactions": "", "processors": "", "groups": "Gamepad", "action": "Jump", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e30", "path": "<Keyboard>/x", "interactions": "", "processors": "", "groups": "Keyboard", "action": "Dash", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e31", "path": "<Gamepad>/rightShoulder", "interactions": "", "processors": "", "groups": "Gamepad", "action": "Dash", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e40", "path": "<Keyboard>/z", "interactions": "", "processors": "", "groups": "Keyboard", "action": "Attack", "isComposite": false, "isPartOfComposite": false },
+                { "name": "", "id": "5b0f8d2c-6a1e-4d3b-9b7e-1f2a3c4d5e42", "path": "<Gamepad>/buttonWest", "interactions": "", "processors": "", "groups": "Gamepad", "action": "Attack", "isComposite": false, "isPartOfComposite": false }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Keyboard",
+            "bindingGroup": "Keyboard",
+            "devices": [
+                { "devicePath": "<Keyboard>", "isOptional": false, "isOR": false }
+            ]
+        },
+        {
+            "name": "Gamepad",
+            "bindingGroup": "Gamepad",
+            "devices": [
+                { "devicePath": "<Gamepad>", "isOptional": false, "isOR": false }
+            ]
+        }
+    ]
+}
