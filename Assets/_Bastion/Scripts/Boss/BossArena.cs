@@ -1,3 +1,4 @@
+using Bastion.Audio;
 using UnityEngine;
 
 namespace Bastion.Boss
@@ -9,6 +10,8 @@ namespace Bastion.Boss
         [SerializeField] BossController boss;
         [SerializeField] GameObject gate;
         [SerializeField] GameObject bossHud;
+        [Tooltip("보스전이 시작되면 바꿀 배경음")]
+        [SerializeField] AudioClip bossMusic;
 
         bool started;
 
@@ -28,6 +31,7 @@ namespace Bastion.Boss
             if (gate != null) gate.SetActive(true);
             if (bossHud != null) bossHud.SetActive(true);
             boss.Activate();
+            SoundManager.PlayMusic(bossMusic);
         }
     }
 }

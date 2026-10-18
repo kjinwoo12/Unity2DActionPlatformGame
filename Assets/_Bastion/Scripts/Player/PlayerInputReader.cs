@@ -13,6 +13,9 @@ namespace Bastion.Player
         [SerializeField] InputActionReference jumpAction;
         [SerializeField] InputActionReference dashAction;
         [SerializeField] InputActionReference attackAction;
+        [SerializeField] InputActionReference interactAction;
+        [Tooltip("상호작용 입력을 보관하는 시간 (실시간)")]
+        [SerializeField, Min(0f)] float interactBufferTime = 0.2f;
 
         const float NotPressed = float.NegativeInfinity;
 
@@ -21,6 +24,7 @@ namespace Bastion.Player
         public float LastJumpPressedTime { get; private set; } = NotPressed;
         public float LastDashPressedTime { get; private set; } = NotPressed;
         public float LastAttackPressedTime { get; private set; } = NotPressed;
+        public float LastInteractPressedTime { get; private set; } = NotPressed;
 
         void OnEnable()
         {
@@ -28,6 +32,11 @@ namespace Bastion.Player
             jumpAction.action.Enable();
             dashAction.action.Enable();
             attackAction.action.Enable();
+            if (interactAction != null)
+            {
+                interactAction.action.Enable();
+                interactAction.action.performed += OnInteractPerformed;
+            }
             jumpAction.action.performed += OnJumpPerformed;
             dashAction.action.performed += OnDashPerformed;
             attackAction.action.performed += OnAttackPerformed;
@@ -38,6 +47,11 @@ namespace Bastion.Player
             jumpAction.action.performed -= OnJumpPerformed;
             dashAction.action.performed -= OnDashPerformed;
             attackAction.action.performed -= OnAttackPerformed;
+            if (interactAction != null)
+                interactAction.action.performed -= OnInteractPerformed;
+            // 비활성화된 동안(대화, 일시정지)에는 이동 입력이 남아 있지 않게 한다.
+            MoveX = 0f;
+            JumpHeld = false;
         }
 
         void Update()
@@ -52,10 +66,21 @@ namespace Bastion.Player
 
         void OnAttackPerformed(InputAction.CallbackContext _) => LastAttackPressedTime = Time.time;
 
+        void OnInteractPerformed(InputAction.CallbackContext _) => LastInteractPressedTime = Time.unscaledTime;
+
         public void ConsumeJump() => LastJumpPressedTime = NotPressed;
 
         public void ConsumeDash() => LastDashPressedTime = NotPressed;
 
         public void ConsumeAttack() => LastAttackPressedTime = NotPressed;
+
+        /// <summary>상호작용 키가 보관 시간 안에 눌렸으면 true를 돌려주고 입력을 소비한다.</summary>
+        public bool ConsumeInteract()
+        {
+            if (Time.unscaledTime - LastInteractPressedTime > interactBufferTime)
+                return false;
+            LastInteractPressedTime = NotPressed;
+            return true;
+        }
     }
 }

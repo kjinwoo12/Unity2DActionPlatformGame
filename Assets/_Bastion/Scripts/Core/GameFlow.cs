@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Bastion.Audio;
 using Bastion.Combat;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,9 @@ namespace Bastion.Core
         [SerializeField] Health boss;
         [SerializeField, Min(0f)] float respawnDelay = 2.5f;
         [SerializeField, Min(0f)] float victoryDelay = 2f;
+        [Tooltip("클리어 문구가 뜬 뒤 이동할 씬 (비워 두면 이동하지 않음)")]
+        [SerializeField] string sceneAfterClear;
+        [SerializeField, Min(0f)] float sceneAfterClearDelay = 4f;
 
         public static event Action PlayerDied;
         public static event Action StageCleared;
@@ -55,8 +59,15 @@ namespace Bastion.Core
 
         IEnumerator ClearAfterDelay()
         {
+            SoundManager.StopMusic(victoryDelay);
             yield return new WaitForSecondsRealtime(victoryDelay);
             StageCleared?.Invoke();
+
+            if (string.IsNullOrEmpty(sceneAfterClear))
+                yield break;
+            yield return new WaitForSecondsRealtime(sceneAfterClearDelay);
+            CheckpointSystem.Clear();
+            SceneManager.LoadScene(sceneAfterClear);
         }
     }
 }

@@ -34,7 +34,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2132151769333132775
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -91,6 +91,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1 &6920798932167874297
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,6 +107,8 @@ GameObject:
   - component: {fileID: 3697265928822152419}
   - component: {fileID: 3634276945779893825}
   - component: {fileID: 5260939856246325099}
+  - component: {fileID: 7925677159505512749}
+  - component: {fileID: 5440529492581896079}
   m_Layer: 8
   m_Name: Boss_FallenWarden
   m_TagString: Untagged
@@ -263,6 +266,43 @@ MonoBehaviour:
   target: {fileID: 0}
   arenaFloorY: 5.69
   arenaRangeX: {x: 64, y: 96}
+--- !u!114 &7925677159505512749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6920798932167874297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda2ac0a9b881314d84661e28ca6e20c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Bastion.Runtime::Bastion.Audio.HealthSounds
+  hurtSound: {fileID: 8300000, guid: ec3513eab7e6ca1458ac2a89714895b5, type: 3}
+  blockSound: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 8cecd84ce0a498347b1f2a11a248675e, type: 3}
+  healSound: {fileID: 0}
+--- !u!114 &5440529492581896079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6920798932167874297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af1713a421f86064f9da28d04df856f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Bastion.Runtime::Bastion.Audio.BossSounds
+  sounds:
+  - Action: Attack
+    Clip: {fileID: 8300000, guid: 54d643c94cef5cc4da481ed8c2e1c216, type: 3}
+  - Action: Skill
+    Clip: {fileID: 8300000, guid: a35138476e8811449900009d1d74a129, type: 3}
+  - Action: Summon
+    Clip: {fileID: 8300000, guid: c9b55505fff4b7846920091804d4de5f, type: 3}
+  - Action: Phase
+    Clip: {fileID: 8300000, guid: c9b55505fff4b7846920091804d4de5f, type: 3}
 --- !u!1001 &7330069391068421127
 PrefabInstance:
   m_ObjectHideFlags: 0

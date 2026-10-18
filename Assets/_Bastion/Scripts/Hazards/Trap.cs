@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Bastion.Combat;
+using Bastion.Core;
 using UnityEngine;
 
 namespace Bastion.Hazards
@@ -39,6 +40,10 @@ namespace Bastion.Hazards
         [Header("Telegraph (optional)")]
         [Tooltip("예고 단계에 재생할 입자 (그림만으로 예고가 잘 안 보일 때)")]
         [SerializeField] AttackTelegraph telegraph;
+
+        [Header("Sound (optional)")]
+        [Tooltip("작동할 때 재생할 소리. 함정 위치에서 나도록 AudioSource의 Spatial Blend를 3D로 둔다")]
+        [SerializeField] AudioSource activeSound;
 
         readonly HashSet<IDamageable> hitThisCycle = new HashSet<IDamageable>();
         static readonly Collider2D[] Buffer = new Collider2D[8];
@@ -100,6 +105,12 @@ namespace Bastion.Hazards
         {
             if (phase == Phase.Warning && CurrentPhase != Phase.Warning && telegraph != null)
                 telegraph.Play((activeFrames.x - frame) / frameRate);
+            if (phase == Phase.Active && CurrentPhase != Phase.Active && activeSound != null)
+            {
+                // SoundManager를 거치지 않는 위치 소리라서 효과음 볼륨 설정을 직접 반영한다.
+                activeSound.volume = GameSettings.SfxVolume;
+                activeSound.Play();
+            }
             CurrentFrame = frame;
             CurrentPhase = phase;
             if (spriteRenderer != null && frames != null && frame < frames.Length)

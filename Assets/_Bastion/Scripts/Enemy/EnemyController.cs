@@ -27,6 +27,9 @@ namespace Bastion.Enemy
         public float LastAttackTime { get; set; } = float.NegativeInfinity;
         public Vector2 Velocity => body.linearVelocity;
 
+        /// <summary>공격을 내지르는 순간 (근접 판정 시작, 투사체 발사). 효과음 등 연출용.</summary>
+        public event System.Action AttackReleased;
+
         public EnemyHurtState HurtState { get; private set; }
         public EnemyDeadState DeadState { get; private set; }
         public EnemyBlockState BlockState { get; private set; }
@@ -126,6 +129,8 @@ namespace Bastion.Enemy
             if (telegraph != null)
                 telegraph.Play(duration);
         }
+
+        public void RaiseAttackReleased() => AttackReleased?.Invoke();
 
         void StopTelegraph()
         {

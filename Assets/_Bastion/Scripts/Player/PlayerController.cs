@@ -46,6 +46,8 @@ namespace Bastion.Player
         public event Action<AttackStep, int> AttackLanded;
         /// <summary>콤보 동작이 시작될 때 (콤보 인덱스).</summary>
         public event Action<int> AttackStarted;
+        /// <summary>지상 점프(코요테 점프 포함)를 했을 때.</summary>
+        public event Action Jumped;
         /// <summary>공중 점프(더블점프)를 했을 때.</summary>
         public event Action AirJumped;
 
@@ -166,6 +168,7 @@ namespace Bastion.Player
             Input.ConsumeJump();
             LastGroundedTime = float.NegativeInfinity; // 코요테 점프 중복 방지
             body.linearVelocity = new Vector2(body.linearVelocity.x, data.JumpVelocity);
+            Jumped?.Invoke();
         }
 
         public bool CanAirJump => AirJumpsRemaining > 0;

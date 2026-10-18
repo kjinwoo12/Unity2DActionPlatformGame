@@ -33,6 +33,8 @@ namespace Bastion.Boss
         public Transform Target => target;
 
         public event Action<int> PhaseChanged;
+        /// <summary>행동을 시작할 때 (BossData의 애니메이션 이름). 공격은 예비 동작이 끝나는 순간에 알린다. 효과음 등 연출용.</summary>
+        public event Action<string> ActionStarted;
 
         DormantState dormant;
         IdleState idle;
@@ -239,6 +241,7 @@ namespace Bastion.Boss
         abstract class AttackState : BossState
         {
             readonly HashSet<IDamageable> hit = new HashSet<IDamageable>();
+            bool released;
             protected AttackState(BossController boss) : base(boss) { }
             protected abstract string Animation { get; }
             protected abstract float Duration { get; }
@@ -246,6 +249,7 @@ namespace Bastion.Boss
             public override void Enter()
             {
                 base.Enter();
+                released = false;
                 Boss.FaceTarget();
                 Boss.Play(Animation);
 
@@ -282,6 +286,11 @@ namespace Bastion.Boss
             {
                 base.FixedTick();
                 Boss.animator.speed = Elapsed < 0f ? 0f : Boss.SpeedMultiplier;
+                if (!released && Elapsed >= 0f)
+                {
+                    released = true;
+                    Boss.ActionStarted?.Invoke(Animation);
+                }
                 if (ScaledElapsed >= Duration)
                     Boss.StateMachine.ChangeState(Boss.idle);
             }
@@ -327,6 +336,7 @@ namespace Bastion.Boss
                 spawned = false;
                 Boss.FaceTarget();
                 Boss.Play(Boss.data.SummonAnimation);
+                Boss.ActionStarted?.Invoke(Boss.data.SummonAnimation);
             }
 
             public override void FixedTick()
@@ -367,6 +377,7 @@ namespace Bastion.Boss
                 Boss.Phase = 2;
                 Boss.Health.InvincibleUntil = Time.time + Boss.data.PhaseTransitionTime;
                 Boss.Play(Boss.data.PhaseAnimation);
+                Boss.ActionStarted?.Invoke(Boss.data.PhaseAnimation);
                 Boss.PhaseChanged?.Invoke(2);
             }
 

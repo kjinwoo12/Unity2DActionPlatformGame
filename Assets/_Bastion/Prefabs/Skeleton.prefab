@@ -34,7 +34,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4215695080620263378
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -91,6 +91,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1 &5571412270642583585
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,6 +107,8 @@ GameObject:
   - component: {fileID: 4545483140036912523}
   - component: {fileID: 701790792956204837}
   - component: {fileID: 1234057275660578335}
+  - component: {fileID: 5500782001026133856}
+  - component: {fileID: 7283156119012161838}
   m_Layer: 8
   m_Name: Skeleton
   m_TagString: Untagged
@@ -261,6 +264,35 @@ MonoBehaviour:
   animator: {fileID: 564945616533250786}
   bodyCollider: {fileID: 3806020625907306082}
   telegraph: {fileID: 652223470655444308}
+--- !u!114 &5500782001026133856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5571412270642583585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda2ac0a9b881314d84661e28ca6e20c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Bastion.Runtime::Bastion.Audio.HealthSounds
+  hurtSound: {fileID: 8300000, guid: ec3513eab7e6ca1458ac2a89714895b5, type: 3}
+  blockSound: {fileID: 8300000, guid: 1b86a5f105f4316498d3d1e935de0811, type: 3}
+  deathSound: {fileID: 8300000, guid: 8de19215c8e20dd4f9b7d96887f18cc6, type: 3}
+  healSound: {fileID: 0}
+--- !u!114 &7283156119012161838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5571412270642583585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c996c934f0ac5c47abfe6c7b4f03359, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Bastion.Runtime::Bastion.Audio.EnemySounds
+  attackSound: {fileID: 8300000, guid: 0e852fcf519a33641ad50fb7b902099c, type: 3}
 --- !u!1001 &4224405984571403928
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -312,6 +344,14 @@ PrefabInstance:
     - target: {fileID: 4221367729513778383, guid: 2135e6e6151cf7a478b364d54bdb808d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435017806724838730, guid: 2135e6e6151cf7a478b364d54bdb808d, type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5435017806724838730, guid: 2135e6e6151cf7a478b364d54bdb808d, type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

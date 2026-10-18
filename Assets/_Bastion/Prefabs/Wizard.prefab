@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 5060062795085560209}
   - component: {fileID: 4646132473145957954}
   - component: {fileID: 4061859542929722128}
+  - component: {fileID: 1746915641858758877}
+  - component: {fileID: 895934184819891008}
   m_Layer: 8
   m_Name: Wizard
   m_TagString: Untagged
@@ -170,6 +172,35 @@ MonoBehaviour:
   animator: {fileID: 2394920249821997091}
   bodyCollider: {fileID: 626371464383063964}
   telegraph: {fileID: 1328178157631283026}
+--- !u!114 &1746915641858758877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4895614427505277972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda2ac0a9b881314d84661e28ca6e20c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Bastion.Runtime::Bastion.Audio.HealthSounds
+  hurtSound: {fileID: 8300000, guid: ec3513eab7e6ca1458ac2a89714895b5, type: 3}
+  blockSound: {fileID: 8300000, guid: 1b86a5f105f4316498d3d1e935de0811, type: 3}
+  deathSound: {fileID: 8300000, guid: 8de19215c8e20dd4f9b7d96887f18cc6, type: 3}
+  healSound: {fileID: 0}
+--- !u!114 &895934184819891008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4895614427505277972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c996c934f0ac5c47abfe6c7b4f03359, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Bastion.Runtime::Bastion.Audio.EnemySounds
+  attackSound: {fileID: 8300000, guid: 008e6b899748c28478f287d6289cfaaa, type: 3}
 --- !u!1 &6644144967391808751
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,7 +235,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7626701362047968346
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -261,6 +292,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1001 &2432948655233508510
 PrefabInstance:
   m_ObjectHideFlags: 0

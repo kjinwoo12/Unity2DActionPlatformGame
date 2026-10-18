@@ -1,4 +1,5 @@
 using System;
+using Bastion.Audio;
 using Bastion.Combat;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Bastion.Core
         [SerializeField] Sprite activeSprite;
         [Tooltip("활성화되면 켜지는 오브젝트 (불빛 등)")]
         [SerializeField] GameObject activeOnly;
+        [SerializeField] AudioClip activateSound;
 
         public bool IsActive { get; private set; }
         public Vector3 SpawnPosition => spawnPoint != null ? spawnPoint.position : transform.position;
@@ -39,6 +41,7 @@ namespace Bastion.Core
             if (health != null && !health.IsDead)
                 health.ResetHealth();
             UpdateVisual();
+            SoundManager.PlaySfx(activateSound);
             Activated?.Invoke(this);
         }
 

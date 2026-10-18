@@ -101,11 +101,13 @@ namespace Bastion.Enemy
             readonly MeleeEnemy owner;
             readonly HashSet<IDamageable> hit = new HashSet<IDamageable>();
             float startTime;
+            bool released;
             public AttackState(MeleeEnemy enemy) : base(enemy) => owner = enemy;
 
             public override void Enter()
             {
                 startTime = Time.time;
+                released = false;
                 hit.Clear();
                 Enemy.Stop();
                 Enemy.LastAttackTime = Time.time;
@@ -119,7 +121,14 @@ namespace Bastion.Enemy
                 var step = Enemy.Data.Attack;
                 float elapsed = Time.time - startTime;
                 if (step.IsActive(elapsed))
+                {
+                    if (!released)
+                    {
+                        released = true;
+                        Enemy.RaiseAttackReleased();
+                    }
                     HitboxQuery.Apply(Enemy.transform, Enemy.FacingDirection, step, Enemy.Data.TargetLayer, hit);
+                }
 
                 if (elapsed >= step.Duration)
                     Enemy.StateMachine.ChangeState(owner.chase);

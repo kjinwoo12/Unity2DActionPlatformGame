@@ -31,7 +31,7 @@
 
 | 항목 | 내용 |
 |---|---|
-| 엔진 | Unity 6 (6000.3.14f1), URP 2D 렌더러 |
+| 엔진 | Unity 6 (6000.6.4f1), URP 2D 렌더러 |
 | 입력 | Input System 1.19 (`BastionControls.inputactions`) |
 | 카메라 | Cinemachine 3.1.7, URP Pixel Perfect Camera |
 | 텍스트 | TextMesh Pro (Unity 6의 `com.unity.ugui`에 포함) |
@@ -78,7 +78,8 @@ Assets/
 ### 씬
 | 씬 | 용도 |
 |---|---|
-| `Stage1` | 실제 게임 레벨 (빌드 설정에 등록) |
+| `Title` | 타이틀 화면 (빌드 씬 목록 0번) |
+| `Stage1` | 실제 게임 레벨 (빌드 씬 목록 1번) |
 | `Sandbox` | 초기 이동 테스트용 회색 박스 씬 (현재는 갱신하지 않음) |
 
 ---
@@ -401,7 +402,17 @@ public interface IState { void Enter(); void Exit(); void Tick(); void FixedTick
 | `GameFlow` | 시작 시 체크포인트로 이동, 사망 시 2.5초 뒤 씬 재시작, 보스 처치 시 클리어 이벤트 |
 | `HealthBar` | 즉시 줄어드는 체력 + 잠시 뒤 따라 줄어드는 잔상(받은 피해량 표시) |
 | `ScreenMessage` | "YOU DIED" / "OATH FULFILLED" 페이드 인 |
-| `BossArena` | 진입 시 입구 봉쇄, 보스 HUD 표시, 보스 활성화 |
+| `BossArena` | 진입 시 입구 봉쇄, 보스 HUD 표시, 보스 활성화, 보스 배경음 |
+| `KillZone` | 레벨 아래 트리거. 떨어진 대상을 `Health.Kill()`로 무적과 상관없이 즉시 사망 처리 |
+| `HealthPickup` | 회복 물약. 체력이 가득하면 남겨 두고, `OnTriggerStay2D`로 서 있다가 다친 순간에도 먹음 |
+| `DialogueData` / `DialogueBox` / `DialogueNpc` | 대사 에셋, 타자 효과 대화 상자(열린 동안 `timeScale` 0), 트리거 범위와 상호작용 키로 말을 거는 NPC |
+| `TitleMenu` | 시작(체크포인트 초기화 후 첫 스테이지), 설정, 종료. 버튼은 코드에서 `AddListener`로 연결 |
+| `PauseMenu` / `SettingsPanel` | Esc로 일시정지(대화·히트스톱 중에는 무시), 음량 슬라이더 |
+| `GameSettings` (static) | 음량 기본값을 한 곳에 두고 PlayerPrefs에 저장, `Changed` 이벤트 |
+| `SoundManager` | 씬마다 하나. 배경음(페이드 전환, 실시간 기준)과 효과음(`PlayOneShot`, 음높이 흔들림) |
+| `HealthSounds` 등 | 로직 이벤트(`Damaged`, `Jumped`, `AttackReleased`, `ActionStarted` 등)를 듣고 소리를 냄. 함정은 3D AudioSource(카메라 Z=-10이라 Min Distance 11) |
+
+한글은 Galmuri11로 만든 TextMeshPro 폰트 에셋(`Art/Fonts/Galmuri11 Pixel`, Dynamic, RASTER_HINTED, 샘플링 12)을 씁니다.
 
 ---
 
@@ -433,7 +444,7 @@ public interface IState { void Enter(); void Exit(); void Tick(); void FixedTick
 
 ## 14. 테스트
 
-PlayMode 테스트 37개가 있고, 기능을 추가할 때마다 테스트로 검증했습니다.
+PlayMode 테스트 44개가 있고, 기능을 추가할 때마다 테스트로 검증했습니다.
 
 | 파일 | 검증 내용 |
 |---|---|
@@ -441,6 +452,7 @@ PlayMode 테스트 37개가 있고, 기능을 추가할 때마다 테스트로 �
 | `CombatTests` | 앞/뒤 판정, 3타 콤보 피해, 히트스톱 복구, 방패 방어, Skeleton 추적·공격·예고, 구르기 무적, Wizard 화염구, 적/플레이어 사망 |
 | `BossAndFlowTests` | 보스 휴면 무적, 아레나 진입, 2페이즈, 예비 동작, 공격, 소환, 클리어, 체크포인트, 사망 후 부활 |
 | `TrapTests` | 예고 중 피해 없음, 작동 시 피해, 주기당 1회, 피스톤 밀쳐내기 |
+| `FeatureTests` | 회복 상한, 낙사(무적이어도 사망), 물약 획득/유지, 대화 열기·넘기기·닫기, Esc 일시정지, 음량 저장 |
 | `Stage1TraversalTests` | 실제 레벨을 오른쪽+점프만으로 끝까지 갈 수 있는지, 경사에서 미끄러지지 않는지 |
 
 ### 입력이 있는 테스트를 쓰는 법
@@ -478,6 +490,10 @@ unity command run_tests --mode playmode --filter Bastion.Tests --async_tests tru
 | 10 | 벽 색이 바닥과 안 어울림 | 원본 팔레트가 다름, 밝기만 조정하면 채도가 튐 | 팔레트 교체 | 픽셀 아트 색 보정은 팔레트 단위로 |
 | 11 | 벽 이음매가 데칼코마니처럼 보임 | 위아래 거울 반복 | 블록 줄눈 + 좌우만 뒤집기 | 반복 무늬는 "의도된 경계"로 숨기는 것이 자연스러움 |
 | 12 | 위에서 본 가시 함정이 떠 보임 | 에셋 시점이 횡스크롤과 다름 | 화염으로 통일 | 에셋 선택 시 시점 확인 |
+| 13 | 회복 물약이 게임 화면에서 점처럼 보임 | 직접 그린 그림은 `ThirdParty` 밖이라 자동 임포트가 적용되지 않아 PPU 100 | PPU 16, Point, 무압축으로 직접 설정 | 자동화의 적용 범위를 알고, 새 그림은 게임 화면에서 크기를 확인 |
+| 14 | NPC에게 말을 걸러 가면 불기둥에 맞음 | 대화 트리거가 바로 옆 함정 판정과 겹침 | 트리거를 함정 반대쪽으로 옮김 (Offset X 1.1, Size X 3) | 레벨 오브젝트의 범위끼리 겹치는지 기즈모로 확인 |
+| 15 | 효과음 음량을 0으로 해도 함정 소리가 남 | 함정의 3D AudioSource는 `SoundManager`를 거치지 않음 | 재생 직전에 `GameSettings.SfxVolume` 적용 | 설정은 모든 출력 경로에 적용되는지 확인 |
+| 16 | 구덩이에 떨어지면 끝없이 떨어짐 | 낙사 처리가 없었음. `TakeDamage`는 무적에 막힘 | `KillZone` + 무적을 무시하는 `Health.Kill()` | 즉사는 일반 피해와 다른 경로로 |
 
 ---
 
@@ -498,12 +514,17 @@ unity command run_tests --mode playmode --filter Bastion.Tests --async_tests tru
 | 11 | 보스 | `BossController` | 패턴 선택, 예비 동작, 페이즈 |
 | 12 | 함정 | `Trap` | 프레임 기반 판정, 주기 |
 | 13 | 게임 흐름 | `GameFlow`, `Checkpoint`, UI | 씬 재시작, static 상태, UGUI/TMP |
-| 14 | 테스트 | `Tests/PlayMode` | PlayMode 테스트, 입력 재현 |
+| 14 | 아이템과 대화 | `HealthPickup`, `Dialogue*` | 트리거 Enter/Stay, ScriptableObject 대사, timeScale 0 |
+| 15 | 타이틀과 일시정지 | `TitleMenu`, `PauseMenu`, `SettingsPanel`, `GameSettings` | 씬 목록, 버튼과 Navigation, PlayerPrefs |
+| 16 | 사운드 | `SoundManager`, `*Sounds` | AudioSource, PlayOneShot, 임포트 설정, 3D 소리 |
+| 17 | 테스트 | `Tests/PlayMode` | PlayMode 테스트, 입력 재현 |
+
+장별 학습 자료(35장)는 교육 문서 저장소의 `docs/unity`에 있습니다.
 
 ---
 
 ## 17. 알려진 한계와 남은 일
-- 사운드, 타이틀 화면, PC 빌드, 플레이 영상은 아직 없습니다.
+- 플레이 영상은 아직 없습니다. 효과음과 배경음은 간단히 합성한 소리라 전문 음원으로 바꿀 여지가 있습니다.
 - 보스가 검은 실루엣이라 어두운 배경에서 잘 보이지 않습니다.
 - `Sandbox` 씬과 `ParallaxLayer`(배경을 타일맵으로 바꾸면서 현재 미사용)는 초기 단계의 흔적입니다.
 - 벽 블록은 한 종류의 반복이라 넓은 화면에서는 패턴이 보일 수 있습니다.

@@ -25,6 +25,8 @@ namespace Bastion.Combat
         public event Action<DamageInfo> Blocked;
         public event Action Died;
         public event Action<int, int> Changed;
+        /// <summary>체력을 회복했을 때 (실제로 늘어난 양).</summary>
+        public event Action<int> Healed;
 
         void Awake() => Current = maxHealth;
 
@@ -47,6 +49,30 @@ namespace Bastion.Combat
             if (IsDead)
                 Died?.Invoke();
             return true;
+        }
+
+        /// <returns>실제로 회복했으면 true (사망했거나 이미 가득 차 있으면 false)</returns>
+        public bool Heal(int amount)
+        {
+            if (IsDead || amount <= 0 || Current >= maxHealth)
+                return false;
+
+            int before = Current;
+            Current = Mathf.Min(maxHealth, Current + amount);
+            Changed?.Invoke(Current, maxHealth);
+            Healed?.Invoke(Current - before);
+            return true;
+        }
+
+        /// <summary>무적과 방어를 무시하고 즉시 사망시킨다 (낙사 등).</summary>
+        public void Kill()
+        {
+            if (IsDead)
+                return;
+
+            Current = 0;
+            Changed?.Invoke(Current, maxHealth);
+            Died?.Invoke();
         }
 
         public void ResetHealth()

@@ -34,7 +34,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4518666430367923177
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -91,6 +91,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1 &7168900700587902589
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,6 +111,8 @@ GameObject:
   - component: {fileID: 4614155464893289050}
   - component: {fileID: 1694470566573130343}
   - component: {fileID: 3193937924513617100}
+  - component: {fileID: 3741382811860083455}
+  - component: {fileID: 3115369125812944806}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -235,6 +238,8 @@ MonoBehaviour:
   jumpAction: {fileID: 39194494397544028, guid: 20b2bfb6d33fcae4db4800eecb8eb23e, type: 3}
   dashAction: {fileID: -3453977739091405864, guid: 20b2bfb6d33fcae4db4800eecb8eb23e, type: 3}
   attackAction: {fileID: -1123566900452998949, guid: 20b2bfb6d33fcae4db4800eecb8eb23e, type: 3}
+  interactAction: {fileID: -7412598501165345936, guid: 20b2bfb6d33fcae4db4800eecb8eb23e, type: 3}
+  interactBufferTime: 0.2
 --- !u!114 &8625778680773758172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,3 +366,39 @@ MonoBehaviour:
   finisherShakeForce: 0.35
   hurtShakeForce: 0.5
   hurtHitStop: 0.08
+--- !u!114 &3741382811860083455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7168900700587902589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda2ac0a9b881314d84661e28ca6e20c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Bastion.Runtime::Bastion.Audio.HealthSounds
+  hurtSound: {fileID: 8300000, guid: 2225ff210cc5169419f8b8a7a8caf456, type: 3}
+  blockSound: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: 8cecd84ce0a498347b1f2a11a248675e, type: 3}
+  healSound: {fileID: 8300000, guid: 80174954859adac498557ccd4783e3d8, type: 3}
+--- !u!114 &3115369125812944806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7168900700587902589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03d437d6020c0bf46b60830955937758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Bastion.Runtime::Bastion.Audio.PlayerSounds
+  jumpSound: {fileID: 8300000, guid: d98a5e46db2ca724b9e2be3f423b10e1, type: 3}
+  airJumpSound: {fileID: 8300000, guid: 839fda97b06093c42a986ba6f4a3b608, type: 3}
+  rollSound: {fileID: 8300000, guid: 4a22923ea4b8c4d41b4cfba46c8daa42, type: 3}
+  swingSounds:
+  - {fileID: 8300000, guid: 467fc55214df22f44a47e4c96325a47c, type: 3}
+  - {fileID: 8300000, guid: 0e852fcf519a33641ad50fb7b902099c, type: 3}
+  - {fileID: 8300000, guid: feac3e374f5bdc94382727384dc7090c, type: 3}
+  hitSound: {fileID: 8300000, guid: 0426590b539908146814bea18ed8f08e, type: 3}

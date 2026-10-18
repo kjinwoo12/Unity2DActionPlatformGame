@@ -28,6 +28,7 @@ namespace Bastion.Enemy
             Vector2 aim = Target != null ? ((Vector2)Target.position + Vector2.up - (Vector2)spawn).normalized : new Vector2(FacingDirection, 0f);
             var projectile = Instantiate(Data.ProjectilePrefab, spawn, Quaternion.identity);
             projectile.Launch(aim * Data.ProjectileSpeed, Data.Attack, Data.TargetLayer, Data.GroundLayer, gameObject);
+            RaiseAttackReleased();
         }
 
         sealed class IdleState : EnemyState
